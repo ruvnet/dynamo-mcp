@@ -1,0 +1,44 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "${env:SUPABASE_ACCESS_TOKEN}"
+      ],
+      "alwaysAllow": [
+        "list_tables",
+        "execute_sql",
+        "listTables",
+        "list_projects",
+        "list_organizations",
+        "get_organization",
+        "apply_migration",
+        "get_project",
+        "execute_query",
+        "generate_typescript_types",
+        "listProjects"
+      ]
+    },
+    "dynamo-mcp": {
+      "command": "python",
+      "args": [
+        "-m",
+        "dynamo_mcp.main",
+        "--transport",
+        "stdio"
+      ],
+      "alwaysAllow": [
+        "list_templates",
+        "add_template",
+        "update_template",
+        "remove_template",
+        "discover_templates",
+        "get_template_variables",
+        "create_project"
+      ]
+    }
+  }
+}
