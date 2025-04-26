@@ -8,7 +8,7 @@ Dynamo MCP is a system that exposes cookiecutter templates through the Model Con
 
 ## Why Templates Matter: The Good Vibes Coding Approach
 
-Great coding starts with great templates. Using well-designed templates is the foundation of the "Good Vibes Coding" approach - a philosophy that emphasizes efficiency, consistency, and enjoyment in the development process.
+Great coding starts with great templates. Using well-designed templates is the foundation of Vibe Coding approach - a philosophy that emphasizes efficiency, consistency, and enjoyment in the development process.
 
 ### Kickstart Your Coding Adventures
 
