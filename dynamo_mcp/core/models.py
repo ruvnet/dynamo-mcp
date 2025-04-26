@@ -15,6 +15,8 @@ class TemplateInfo(BaseModel):
     description: str = Field("", description="A description of the template")
     path: str = Field(..., description="The path to the template directory")
     venv_path: str = Field(..., description="The path to the virtual environment")
+    category: str = Field("", description="The category of the template")
+    tags: List[str] = Field(default_factory=list, description="Tags for the template")
 
 
 class TemplateVariable(BaseModel):

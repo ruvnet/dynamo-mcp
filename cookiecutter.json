@@ -1,0 +1,23 @@
+{
+    "project_name": "Dynamo MCP",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_short_description": "A dynamic MCP registry for cookiecutter templates",
+    "author_name": "Your Name",
+    "author_email": "your.email@example.com",
+    "github_username": "ruvnet",
+    "version": "0.1.0",
+    "python_version": "3.8",
+    "use_pytest": "y",
+    "use_black": "y",
+    "open_source_license": ["MIT", "BSD-3-Clause", "GNU GPL v3.0", "Apache Software License 2.0", "Not open source"],
+    "_copy_without_render": [
+        "*.html",
+        "*.js",
+        "*.css",
+        "*.yml",
+        "*.yaml"
+    ],
+    "_templates_dir": "dynamo_mcp/templates",
+    "_description": "A dynamic MCP registry for cookiecutter templates",
+    "_category": "MCP"
+}

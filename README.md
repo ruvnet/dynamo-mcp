@@ -6,9 +6,29 @@ A dynamic MCP registry for cookiecutter templates.
 
 Dynamo MCP is a system that exposes cookiecutter templates through the Model Context Protocol (MCP). It allows you to discover, register, and manage cookiecutter templates, and generate projects from them.
 
+## Why Templates Matter: The Good Vibes Coding Approach
+
+Great coding starts with great templates. Using well-designed templates is the foundation of the "Good Vibes Coding" approach - a philosophy that emphasizes efficiency, consistency, and enjoyment in the development process.
+
+### Kickstart Your Coding Adventures
+
+- **Faster Development**: Templates eliminate repetitive boilerplate setup, letting you focus on what matters - your unique code and business logic. Start coding meaningful features in minutes, not hours.
+
+- **More Efficient Workflows**: Pre-configured with best practices, proper folder structures, and essential dependencies, templates provide a solid foundation that would take days to research and implement from scratch.
+
+- **Cost-Effective**: Reduce development costs by eliminating the time spent on initial project setup, configuration, and architecture decisions. Templates encapsulate years of community knowledge and best practices.
+
+- **Consistent Quality**: Templates enforce consistent coding standards, documentation practices, and project structures across your organization or personal projects.
+
+- **Lower Learning Curve**: New team members can quickly understand projects built from standard templates, reducing onboarding time and increasing productivity.
+
+With Dynamo MCP's extensive template library, you can instantly access templates for virtually any type of project - from web applications to data science, from machine learning to game development - and start building with good vibes from day one.
+
 ## Features
 
 - **Template Registry**: Discover, add, update, and remove cookiecutter templates
+- **Template Database**: Store and manage templates in a SQLite database with categorization, tagging, and search capabilities
+- **Default Template Library**: Access a comprehensive library of 50+ pre-defined templates across various categories
 - **Environment Manager**: Create and manage virtual environments for templates
 - **Interface Generator**: Extract variables from templates
 - **Project Generator**: Generate projects from templates
@@ -20,12 +40,32 @@ Dynamo MCP is a system that exposes cookiecutter templates through the Model Con
 
 ```bash
 # Clone the repository
-git clone https://github.com/example/dynamo-mcp.git
+git clone https://github.com/ruvnet/dynamo-mcp.git
 cd dynamo-mcp
 
 # Install the package
 pip install -e .
 ```
+
+## Using as a Cookiecutter Template
+
+You can use this repository as a cookiecutter template to create your own MCP server:
+
+```bash
+# Install cookiecutter if you haven't already
+pip install cookiecutter
+
+# Create a new project from the template
+cookiecutter https://github.com/ruvnet/dynamo-mcp
+
+# Follow the prompts to customize your project
+```
+
+This will create a new project with the following features:
+- Fully functional MCP server with SQLite database integration
+- Customizable project name, author, and license
+- Pre-configured virtual environment setup
+- Optional pytest and black integration
 
 ## Usage
 
@@ -47,16 +87,22 @@ dynamo-mcp --host 0.0.0.0 --port 8000
 The MCP server exposes the following tools:
 
 - `list_templates`: List all available cookiecutter templates
+- `list_templates_by_category`: List templates filtered by category
+- `get_categories`: Get all unique template categories
+- `search_templates`: Search templates by name, description, category, or tags
 - `add_template`: Add a new cookiecutter template
 - `update_template`: Update a cookiecutter template
 - `remove_template`: Remove a cookiecutter template
-- `discover_templates`: Discover popular cookiecutter templates
+- `discover_templates`: Discover templates from the default template library
 - `get_template_variables`: Get the variables for a cookiecutter template
 - `create_project`: Create a project from a cookiecutter template
 
 The MCP server also exposes the following resources:
 
 - `templates://list`: List all available cookiecutter templates
+- `templates://categories`: List all template categories
+- `templates://category/{category}`: List templates in a specific category
+- `templates://search/{query}`: Search templates by query
 - `templates://{name}/variables`: Get the variables for a specific cookiecutter template
 - `templates://{name}/info`: Get information about a specific cookiecutter template
 
@@ -119,6 +165,107 @@ async def main():
 asyncio.run(main())
 ```
 
+### Example: Searching Templates by Category
+
+```python
+import asyncio
+from fastmcp import FastMCPClient
+
+async def main():
+    # Connect to the MCP server
+    client = FastMCPClient("http://localhost:3000")
+    
+    # Get all categories
+    categories = await client.call_tool("get_categories", {})
+    print(f"Available categories: {categories}")
+    
+    # List templates in a specific category
+    python_templates = await client.call_tool("list_templates_by_category", {
+        "category": "Python"
+    })
+    
+    print(f"Python templates: {python_templates}")
+
+asyncio.run(main())
+```
+
+### Example: Searching Templates
+
+```python
+import asyncio
+from fastmcp import FastMCPClient
+
+async def main():
+    # Connect to the MCP server
+    client = FastMCPClient("http://localhost:3000")
+    
+    # Search for templates
+    django_templates = await client.call_tool("search_templates", {
+        "query": "django"
+    })
+    
+    print(f"Django-related templates: {django_templates}")
+    
+    # Access search resource directly
+    flask_templates = await client.access_resource("templates://search/flask")
+    print(f"Flask-related templates: {flask_templates}")
+
+asyncio.run(main())
+```
+
+## Template Database
+
+The system includes a SQLite database for storing and managing templates. The database provides the following features:
+
+- **Categorization**: Templates are organized into categories for easy discovery
+- **Tagging**: Templates can be tagged for additional organization
+- **Search**: Templates can be searched by name, description, category, or tags
+- **Default Library**: The database is pre-populated with 50+ popular templates across various categories
+
+### Database Schema
+
+The database schema is defined in `dynamo_mcp/sql/schema.sql` and includes the following tables:
+
+- **templates**: Stores template information
+  - `id`: Unique identifier
+  - `name`: Template name
+  - `url`: Template repository URL
+  - `description`: Template description
+  - `category`: Template category
+  - `tags`: Comma-separated list of tags
+  - `created_at`: Creation timestamp
+
+- **template_versions**: Stores version information for templates
+  - `id`: Unique identifier
+  - `template_id`: Reference to templates.id
+  - `version`: Version string
+  - `git_hash`: Git hash of the version
+  - `created_at`: Creation timestamp
+
+- **template_dependencies**: Stores dependencies between templates
+  - `id`: Unique identifier
+  - `template_id`: Reference to templates.id
+  - `dependency_id`: Reference to templates.id
+  - `optional`: Whether the dependency is optional
+
+### Database Initialization
+
+The database is automatically initialized when the system starts. You can also manually initialize or reset the database:
+
+```bash
+# Initialize the database with default templates
+python -m dynamo_mcp.scripts.init_db
+
+# Reset the database (delete and recreate)
+python -m dynamo_mcp.scripts.init_db --reset
+
+# Initialize the database using the SQL schema file
+python -m dynamo_mcp.scripts.init_db_from_sql
+
+# Initialize only the schema without adding templates
+python -m dynamo_mcp.scripts.init_db_from_sql --schema-only
+```
+
 ## Configuration
 
 The following environment variables can be used to configure the system:
@@ -162,13 +309,44 @@ python tests/comprehensive_test.py
     - `template_registry.py`: Template registry
   - `utils/`: Utility components
     - `config.py`: Configuration
+    - `database.py`: Database utilities
     - `exceptions.py`: Exceptions
+    - `init_template_db.py`: Database initialization
+  - `scripts/`: Scripts
+    - `init_db.py`: Database initialization script
+    - `init_db_from_sql.py`: Database initialization from SQL schema
+  - `sql/`: SQL files
+    - `schema.sql`: Database schema definition
   - `main.py`: Main entry point
 - `tests/`: Tests
   - `test_basic.py`: Basic tests
+  - `test_database.py`: Database tests
   - `test_mcp_stdio.py`: MCP stdio transport tests
   - `comprehensive_test.py`: Comprehensive tests
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Converting to a Full Cookiecutter Template
+
+This repository is already set up with the basic cookiecutter template structure (cookiecutter.json and hooks). To convert it to a full cookiecutter template with proper variable substitution:
+
+```bash
+# Run the conversion script
+python scripts/convert_to_template.py
+
+# Test the template locally
+cookiecutter .
+
+# If everything looks good, commit and push to GitHub
+git add .
+git commit -m "Convert to cookiecutter template"
+git push
+```
+
+After pushing to GitHub, users can create new projects from your template using:
+
+```bash
+cookiecutter https://github.com/ruvnet/dynamo-mcp
+```

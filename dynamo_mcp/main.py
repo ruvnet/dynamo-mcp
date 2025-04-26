@@ -12,6 +12,8 @@ from typing import Optional
 
 from dynamo_mcp.api.mcp_server import MCPServer
 from dynamo_mcp.utils.config import HOST, PORT, TRANSPORT
+from dynamo_mcp.utils.database import ensure_db_exists
+from dynamo_mcp.utils.init_template_db import initialize_database
 
 # Set up logging
 logging.basicConfig(
@@ -67,6 +69,19 @@ def parse_args():
         help="Enable verbose logging"
     )
     
+    # Database initialization
+    parser.add_argument(
+        "--init-db",
+        action="store_true",
+        help="Initialize the template database with default templates"
+    )
+    
+    parser.add_argument(
+        "--reset-db",
+        action="store_true",
+        help="Reset the template database before initialization"
+    )
+    
     return parser.parse_args()
 
 
@@ -79,6 +94,28 @@ def setup_environment():
     """Set up the environment."""
     # Add current directory to path
     sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
+
+def initialize_template_database(force_reset: bool = False):
+    """Initialize the template database with default templates.
+    
+    Args:
+        force_reset: Whether to force reset the database
+    """
+    logger.info("Initializing template database...")
+    
+    # Ensure database exists
+    ensure_db_exists()
+    
+    # Initialize database with default templates if it's empty
+    try:
+        count, names = initialize_database(reset=force_reset)
+        if count > 0:
+            logger.info(f"Added {count} templates to the database")
+        else:
+            logger.info("No new templates added to the database")
+    except Exception as e:
+        logger.error(f"Error initializing template database: {e}", exc_info=True)
 
 
 def setup_signal_handlers():
@@ -112,6 +149,10 @@ def main():
         if args.testing:
             setup_testing_mode()
             logger.info("Running in testing mode")
+        
+        # Initialize database if requested
+        if args.init_db or args.reset_db:
+            initialize_template_database(force_reset=args.reset_db)
         
         # Log startup information
         logger.info(f"Starting Dynamo MCP Server with {args.transport} transport")

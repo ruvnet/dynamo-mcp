@@ -14,6 +14,7 @@ from dynamo_mcp.core.interface_generator import InterfaceGenerator
 from dynamo_mcp.core.project_generator import ProjectGenerator
 from dynamo_mcp.utils.config import AUTH_ENABLED, AUTH_USERNAME, AUTH_PASSWORD
 from dynamo_mcp.utils.exceptions import TemplateNotFoundError, DynamoMCPError
+from dynamo_mcp.utils.database import get_template_by_name, convert_db_template_to_model
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -116,6 +117,42 @@ class MCPServer:
                 logger.error(f"Error discovering templates: {e}", exc_info=True)
                 raise
         
+        # Database-related Tools
+        @self.mcp.tool()
+        async def list_templates_by_category(category: Optional[str] = None, ctx: Context = None) -> List[TemplateInfo]:
+            """List templates filtered by category.
+            
+            Args:
+                category: Category to filter by, or None for all templates
+            """
+            try:
+                return await self.template_registry.list_templates_by_category(category)
+            except Exception as e:
+                logger.error(f"Error listing templates by category: {e}", exc_info=True)
+                raise
+        
+        @self.mcp.tool()
+        async def get_categories(ctx: Context) -> List[str]:
+            """Get all unique template categories."""
+            try:
+                return await self.template_registry.get_categories()
+            except Exception as e:
+                logger.error(f"Error getting categories: {e}", exc_info=True)
+                raise
+        
+        @self.mcp.tool()
+        async def search_templates(query: str, ctx: Context) -> List[TemplateInfo]:
+            """Search templates by name, description, category, or tags.
+            
+            Args:
+                query: Search query
+            """
+            try:
+                return await self.template_registry.search_templates(query)
+            except Exception as e:
+                logger.error(f"Error searching templates: {e}", exc_info=True)
+                raise
+        
         # Template Variables Tools
         @self.mcp.tool()
         async def get_template_variables(template_name: str, ctx: Context) -> List[TemplateVariable]:
@@ -167,6 +204,36 @@ class MCPServer:
                 logger.error(f"Error accessing templates list resource: {e}", exc_info=True)
                 raise
         
+        # Template Categories Resource
+        @self.mcp.resource("templates://categories")
+        async def get_categories_resource(ctx: Context) -> List[str]:
+            """Get all template categories."""
+            try:
+                return await self.template_registry.get_categories()
+            except Exception as e:
+                logger.error(f"Error accessing categories resource: {e}", exc_info=True)
+                raise
+        
+        # Templates by Category Resource
+        @self.mcp.resource("templates://category/{category}")
+        async def get_templates_by_category_resource(category: str, ctx: Context) -> List[TemplateInfo]:
+            """Get templates in a specific category."""
+            try:
+                return await self.template_registry.list_templates_by_category(category)
+            except Exception as e:
+                logger.error(f"Error accessing templates by category resource: {e}", exc_info=True)
+                raise
+        
+        # Search Templates Resource
+        @self.mcp.resource("templates://search/{query}")
+        async def search_templates_resource(query: str, ctx: Context) -> List[TemplateInfo]:
+            """Search templates by query."""
+            try:
+                return await self.template_registry.search_templates(query)
+            except Exception as e:
+                logger.error(f"Error accessing search templates resource: {e}", exc_info=True)
+                raise
+        
         # Template Variables Resource
         @self.mcp.resource("templates://{name}/variables")
         async def get_template_variables_resource(name: str, ctx: Context) -> List[TemplateVariable]:
@@ -182,10 +249,17 @@ class MCPServer:
         async def get_template_info_resource(name: str, ctx: Context) -> TemplateInfo:
             """Get information about a specific cookiecutter template."""
             try:
-                templates = self.template_registry.templates
-                if name not in templates:
+                # Check both installed templates and database templates
+                if name in self.template_registry.templates:
+                    return self.template_registry.templates[name]
+                elif name in self.template_registry.db_templates:
+                    return self.template_registry.db_templates[name]
+                else:
+                    # Try to get from database
+                    db_template = get_template_by_name(name)
+                    if db_template:
+                        return convert_db_template_to_model(db_template)
                     raise TemplateNotFoundError(f"Template '{name}' not found")
-                return templates[name]
             except Exception as e:
                 logger.error(f"Error accessing template info resource: {e}", exc_info=True)
                 raise
