@@ -1,28 +1,37 @@
 # Dynamo MCP
 
-A dynamic MCP registry for cookiecutter templates.
+Dynamo MCP is a system that exposes cookiecutter templates through the Model Context Protocol (MCP). It allows you to discover, register, and manage cookiecutter templates, and generate projects from them - enabling a more efficient, error-free "Vibe coding" experience.
 
-## Overview
+## What is Cookiecutter?
 
-Dynamo MCP is a system that exposes cookiecutter templates through the Model Context Protocol (MCP). It allows you to discover, register, and manage cookiecutter templates, and generate projects from them.
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) is a command-line tool that generates projects from templates. It uses a template directory with a cookiecutter.json file to create customized project structures.
 
-## Why Templates Matter: The Good Vibes Coding Approach
+Templates enable rapid project scaffolding with best practices built-in. The cookiecutter ecosystem offers thousands of community-maintained templates across programming languages and frameworks, encapsulating collective expertise for developers to leverage instantly.
 
-Great coding starts with great templates. Using well-designed templates is the foundation of Vibe Coding approach - a philosophy that emphasizes efficiency, consistency, and enjoyment in the development process.
+## What is Vibe Coding?
 
-### Kickstart Your Coding Adventures
+"Vibe coding" is a modern approach where developers use AI tools to generate code from natural language prompts. Developers describe functionality in plain language while AI handles implementation details.
 
-- **Faster Development**: Templates eliminate repetitive boilerplate setup, letting you focus on what matters - your unique code and business logic. Start coding meaningful features in minutes, not hours.
+The synergy between cookiecutter templates, MCP, and AI creates a powerful development workflow:
+- Templates provide structured foundations with best practices
+- MCP enables seamless template discovery and integration
+- AI tools customize and extend template-based code
 
-- **More Efficient Workflows**: Pre-configured with best practices, proper folder structures, and essential dependencies, templates provide a solid foundation that would take days to research and implement from scratch.
+This combination dramatically reduces errors, accelerates development, and lets developers focus on high-level design rather than repetitive coding tasks.
 
-- **Cost-Effective**: Reduce development costs by eliminating the time spent on initial project setup, configuration, and architecture decisions. Templates encapsulate years of community knowledge and best practices.
+## Why Templates Matter: The Vibe Coding Approach
 
-- **Consistent Quality**: Templates enforce consistent coding standards, documentation practices, and project structures across your organization or personal projects.
+Great coding starts with great templates. Templates form the foundation of the Vibe Coding approach, combining efficiency, consistency, and enjoyment. When paired with AI-powered code generation, the result is nearly error-free development that maximizes productivity.
 
-- **Lower Learning Curve**: New team members can quickly understand projects built from standard templates, reducing onboarding time and increasing productivity.
+### Benefits at a Glance
 
-With Dynamo MCP's extensive template library, you can instantly access templates for virtually any type of project - from web applications to data science, from machine learning to game development - and start building with good vibes from day one.
+- **Faster Development**: Skip repetitive boilerplate and focus on unique business logic
+- **Efficient Workflows**: Leverage pre-configured best practices and structures
+- **Cost-Effective**: Eliminate time spent on setup and architecture decisions
+- **Consistent Quality**: Enforce standards across projects and teams
+- **Lower Learning Curve**: Help new team members understand projects quickly
+
+Dynamo MCP's extensive template library gives you instant access to templates for virtually any project type, letting you start building with good vibes from day one.
 
 ## Features
 
