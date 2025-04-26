@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/dynamo-mcp.png" alt="Dynamo MCP Logo" width="400">
+  <img src="assets/dynamo-mcp.png" alt="Dynamo MCP Logo">
 </p>
 
 # Dynamo MCP
