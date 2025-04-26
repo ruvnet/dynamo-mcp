@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/dynamo-mcp.png" alt="Dynamo MCP Logo" width="400">
+</p>
+
 # Dynamo MCP
 
 Dynamo MCP is a system that exposes cookiecutter templates through the Model Context Protocol (MCP). It allows you to discover, register, and manage cookiecutter templates, and generate projects from them - enabling a more efficient, error-free "Vibe coding" experience.
