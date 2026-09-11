@@ -23,10 +23,17 @@ async function boundedRead(file, max) {
   try {
     const stat = await handle.stat();
     if (!stat.isFile() || stat.size > max) throw Error('Invalid template file');
-    const buffer = Buffer.alloc(max + 1);
-    const { bytesRead } = await handle.read(buffer, 0, max + 1, 0);
-    if (bytesRead > max) throw Error('Template too large');
-    return buffer.subarray(0, bytesRead);
+    // Read fresh bytes on every request. Size the allocation to the verified
+    // regular file, retaining one sentinel byte to detect concurrent growth.
+    const buffer = Buffer.alloc(stat.size + 1);
+    let offset = 0;
+    while (offset < buffer.length) {
+      const { bytesRead } = await handle.read(buffer, offset, buffer.length - offset, offset);
+      if (bytesRead === 0) break;
+      offset += bytesRead;
+    }
+    if (offset !== stat.size) throw Error('Template changed during read');
+    return buffer.subarray(0, offset);
   } finally { await handle.close(); }
 }
 export async function registry() {
