@@ -2,20 +2,20 @@
 > @ruvnet/dynamo-mcp@2.0.0-alpha.1 test
 > node --test test/*.test.mjs
 
-✔ all three pinned template types generate reproducibly and pass their own tests (594.146816ms)
-✔ caller path traversal, shell strings and unrecognized fields rejected (1.788516ms)
-✔ digest tampering and hooks rejected without execution (0.393265ms)
-✔ malicious file paths, duplicates and file directory collisions rejected (0.265331ms)
-✔ bundle and rendered file resource limits enforced (1.255479ms)
-✔ symlink and non-private output roots rejected (2.550198ms)
-✔ existing project symlink never followed (2.784753ms)
-✔ concurrent generation reserves one project and preserves contents (5.4933ms)
-✔ quota and crash lock fail closed (13.49969ms)
-✔ legacy Python entrypoint rejects before network or imports (14.185432ms)
-✔ successive previews reverify fresh template bytes and reject replacement symlink (7.287684ms)
-✔ official SDK stdio discovers tools and resource, renders project, rejects writes and shell (201.053753ms)
-✔ runtime validation rejects unconfigured execution (0.886882ms)
-✔ authorized SDK generation publishes tested source and fixed validation passes (852.349809ms)
+✔ all three pinned template types generate reproducibly and pass their own tests (587.129056ms)
+✔ caller path traversal, shell strings and unrecognized fields rejected (1.847474ms)
+✔ digest tampering and hooks rejected without execution (0.353525ms)
+✔ malicious file paths, duplicates and file directory collisions rejected (0.304531ms)
+✔ bundle and rendered file resource limits enforced (1.251202ms)
+✔ symlink and non-private output roots rejected (10.532422ms)
+✔ existing project symlink never followed (2.891204ms)
+✔ concurrent generation reserves one project and preserves contents (7.023263ms)
+✔ quota and crash lock fail closed (18.305669ms)
+✔ legacy Python entrypoint rejects before network or imports (13.894866ms)
+✔ successive previews reverify fresh template bytes and reject replacement symlink (7.495758ms)
+✔ official SDK stdio discovers tools and resource, renders project, rejects writes and shell (182.819275ms)
+✔ runtime validation rejects unconfigured execution (0.834212ms)
+✔ authorized SDK generation publishes tested source and fixed validation passes (823.624805ms)
 ℹ tests 14
 ℹ suites 0
 ℹ pass 14
@@ -23,4 +23,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1240.569987
+ℹ duration_ms 1202.940168

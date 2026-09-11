@@ -27,7 +27,7 @@ async function boundedRead(file, max) {
     // regular file, retaining one sentinel byte to detect concurrent growth.
     const buffer = Buffer.alloc(stat.size + 1);
     let offset = 0;
-    while (offset < stat.size) {
+    while (offset < buffer.length) {
       const { bytesRead } = await handle.read(buffer, offset, buffer.length - offset, offset);
       if (bytesRead === 0) break;
       offset += bytesRead;
