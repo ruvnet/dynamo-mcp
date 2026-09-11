@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "content": "name: generated-project\non: [push, pull_request]\npermissions:\n  contents: read\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '24'\n      - run: npm test\n"
+    },
+    {
+      "path": ".gitignore",
+      "content": "node_modules/\n.env\n"
+    },
+    {
+      "path": "README.md",
+      "content": "# {{name}}\n\nA deterministic Dynamo project. Run `npm test`. Source is generated without executing hooks or downloading code. Review before deployment.\n"
+    },
+    {
+      "path": "harness.json",
+      "content": "{\"version\": 1, \"validation\": [\"npm\", \"test\"], \"automaticPromotion\": false, \"ecosystem\": {\"ruflo\": \"https://github.com/ruvnet/ruflo\", \"metaharness\": \"https://github.com/ruvnet/metaharness\", \"autogenous\": \"https://github.com/ruvnet/autogenous\"}}\n"
+    },
+    {
+      "path": "index.mjs",
+      "content": "export function sum(values) { if (!Array.isArray(values) || values.length > 10000 || values.some(v => typeof v !== \"number\" || !Number.isFinite(v))) throw Error(\"Invalid values\"); const result = values.reduce((a,b)=>a+b,0); if(!Number.isFinite(result)) throw Error(\"Overflow\"); return result; }\n"
+    },
+    {
+      "path": "index.test.mjs",
+      "content": "import test from \"node:test\"; import assert from \"node:assert/strict\"; import {sum} from \"./index.mjs\"; test(\"sum\",()=>assert.equal(sum([1,2]),3)); test(\"invalid\",()=>assert.throws(()=>sum([NaN])));\n"
+    },
+    {
+      "path": "package.json",
+      "content": "{\"name\":\"{{name}}\",\"private\":true,\"type\":\"module\",\"exports\":\"./index.mjs\",\"scripts\":{\"test\":\"node --test\"}}\n"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "generator": "0.1.0",
+  "template": "vertical:repo-maintainer",
+  "template_version": "0.0.0",
+  "vars": {
+    "name": "dynamo-mcp-agent",
+    "description": "Secure reproducible Dynamo MCP project generation",
+    "host": "codex"
+  },
+  "hosts": [
+    "codex",
+    "claude-code",
+    "copilot"
+  ],
+  "files": {
+    ".claude/commands/doctor.md": "2f1475fa0ed34729cb2ed9d6cecf29e99781da0a56afef133361e3ff0a17bb52",
+    ".claude/commands/release-check.md": "9b1a77411d9b4eaf8d26a5360f3f568530e47de6915d5a03a684a4b79bfdcc14",
+    ".claude/commands/repo-triage.md": "d4d2e75a18adbaa2dc6a8123ab57765a29ffc52196600b6b29d22798f68df171",
+    ".claude/settings.json": "71b9c76c7f50401c78ac5bc0057fd71a123397fb4bb459978402067bdc538fff",
+    ".claude/skills/memory-inspect/SKILL.md": "996b09e2dd12f68a589d94de0cbaef1522a30c912157cbbd6557abd3c4fd1ff3",
+    ".claude/skills/plan-change/SKILL.md": "84e1c44ca264b999ebf80cd8fa0e5ebf554275bbd8023b1530ad053a44482e30",
+    ".claude-plugin/plugin.json": "b960295b40fb014a546b9c0f274621f5291d2e6d7fe6677d35465455854fd040",
+    "CLAUDE.md": "40d6179436aee896f788ccb12e74ce2bd739e8c3646d9b792b5e7e45c40c38b2",
+    "README.md": "16844b5d56af9394408924d0fec0702fb6c3a80962ad6a3c77e6bb626129a627",
+    "__tests__/smoke.test.ts": "9adcc696409225229597d611b8c135aeb470e96e93affa4a6070db8944759dce",
+    "bin/cli.js": "1fb31702a7a97ede97baf629843d65ac3e096f1fa8a773ad5a7ef3a603a36d18",
+    "package.json": "585e5f4374fa337a8ee3e65e932b42115e38078a4aab67c645cc530731f53430",
+    "src/agents/benchmarker.ts": "457e3662efc831705b9a7bddfb91981295e54702d8e821ea23eeaab8a356631a",
+    "src/agents/maintainer.ts": "f1c35851a14520c62a40e209ba4ce9a7e15e08aa181c0ef30faf15df7761e368",
+    "src/agents/release.ts": "8d85b3c788e86135a53dd3de2de6d84438556749f1e161a886f2fe342ac64c48",
+    "src/agents/security.ts": "1e7c5e410adee38160c6925485e36a7bdf334f83adf2550710a7ece914107f42",
+    "src/init.ts": "e044d94be9ad64230c4b6170766f6c3de72ba9329a88bbb17c6c56b8601ed21c",
+    "tsconfig.json": "8b4e730a1aa39162ac574455d7a98e1881f5313ca80ffe503b9652dcf0c76b9d",
+    "vitest.config.ts": "e9e94875611ab1cd602c1f6923902c2dab7953a75ac022962973639d1937587a",
+    ".codex/config.toml": "970abde13b4e98da9269e30b815f82136769c6a5dc6cdf95af7254a5b10e09d9",
+    "AGENTS.md": "74d6035323b0ceba0e022b6782c4b11612da195209ac26e321d7236104b8bfe0",
+    ".vscode/mcp.json": "0601a9edae72b289000f1d80a5602782ae516f2f820e462fd015c2d4f6fcf140",
+    "install.md": "4d25d36bba0cc4bd594fa3d18c683ea6364e4893cbb9fc7ea1afcc7aa807f1d6",
+    ".github/copilot-instructions.md": "74d6035323b0ceba0e022b6782c4b11612da195209ac26e321d7236104b8bfe0",
+    "LICENSE": "d66a6b1083fc0dafc8a562a417f0f1a0c0de537b492be361e56158735d0cee2c",
+    ".claude/skills/evolve/SKILL.md": "f97328d200b4bc788d09df95f2d1e8ad07c6a14b03d1ad71e257e59f8e1dc6a0",
+    "src/sessions/log.ts": "0195838041c49bb2f2745a231f3179a1629eef4749d220087a9615882d344d1d",
+    "src/field-memory.ts": "659354e8dc04375fbe3e7566f970a351249d928bd4759bf0a7a0d6bc35fd8a23"
+  },
+  "generated_at": "2026-09-11T01:14:31.772Z",
+  "meta": {
+    "surface": "cli"
+  },
+  "field_memory": {
+    "contract_schema": 1,
+    "enabled": true,
+    "package": "@metaharness/field-memory",
+    "version": "^0.1.0",
+    "module": "src/field-memory.ts",
+    "layout": "packed",
+    "minimum_support": 3,
+    "hysteresis_enabled": false,
+    "storage_path_required": true,
+    "drift_window_enabled": true,
+    "principal_identity_required": true,
+    "identity_hash_key_required": true
+  }
+}

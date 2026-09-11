@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "node-cli",
+      "sha256": "b17535a4091ff20bf1d3dccc841bf1f167dee384a0bc6d1477b2e449d3fe5306",
+      "description": "Dependency-free Node command line utility with tests"
+    },
+    {
+      "id": "node-library",
+      "sha256": "549c888b1e7fb5b711b23bf1780db09e7aa568a269d30841ce983d8c30e137f9",
+      "description": "Dependency-free reusable Node library with tests"
+    },
+    {
+      "id": "python-cli",
+      "sha256": "2ee4bf8057b7f000230bad49dab1a11772f0d4a64e18f151f318650531d59218",
+      "description": "Python standard library command line utility with tests"
+    }
+  ]
+}
