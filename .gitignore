@@ -174,3 +174,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Supported v2 runtime
+node_modules/
+benchmark.json
+*.tar.gz

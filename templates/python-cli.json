@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "content": "name: generated-project\non: [push, pull_request]\npermissions:\n  contents: read\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '24'\n      - run: npm test\n"
+    },
+    {
+      "path": ".gitignore",
+      "content": "node_modules/\n.env\n"
+    },
+    {
+      "path": "README.md",
+      "content": "# {{name}}\n\nA deterministic Dynamo project. Run `npm test`. Source is generated without executing hooks or downloading code. Review before deployment.\n"
+    },
+    {
+      "path": "app.py",
+      "content": "import argparse\n\ndef greet(name):\n    return \"Hello \" + name\n\nif __name__ == \"__main__\":\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"name\", nargs=\"?\", default=\"world\")\n    print(greet(parser.parse_args().name))\n"
+    },
+    {
+      "path": "harness.json",
+      "content": "{\"version\": 1, \"validation\": [\"npm\", \"test\"], \"automaticPromotion\": false, \"ecosystem\": {\"ruflo\": \"https://github.com/ruvnet/ruflo\", \"metaharness\": \"https://github.com/ruvnet/metaharness\", \"autogenous\": \"https://github.com/ruvnet/autogenous\"}}\n"
+    },
+    {
+      "path": "package.json",
+      "content": "{\"name\":\"{{name}}\",\"private\":true,\"scripts\":{\"test\":\"python3 -m unittest discover -s tests\"}}\n"
+    },
+    {
+      "path": "tests/test_app.py",
+      "content": "import unittest\nfrom app import greet\n\nclass AppTest(unittest.TestCase):\n    def test_greeting(self):\n        self.assertEqual(greet(\"world\"), \"Hello world\")\n"
+    }
+  ]
+}

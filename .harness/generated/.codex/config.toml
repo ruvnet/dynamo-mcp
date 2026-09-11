@@ -1,0 +1,3 @@
+[mcp_servers.dynamo-mcp-agent]
+command = "node"
+args = [".harness/generated/bin/cli.js", "mcp"]

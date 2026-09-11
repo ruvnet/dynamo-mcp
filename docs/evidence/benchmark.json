@@ -1,0 +1,7 @@
+{
+  "samples": 100,
+  "workload": "local digest verification and deterministic render, no filesystem writes",
+  "medianMs": 0.7414309999999915,
+  "p95Ms": 3.638061999999991,
+  "superiorityClaim": false
+}
