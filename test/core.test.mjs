@@ -61,3 +61,20 @@ test('quota and crash lock fail closed',async()=>temporary(async root=>{
 test('legacy Python entrypoint rejects before network or imports',()=>{
   assert.throws(()=>execFileSync('python3',['-m','dynamo_mcp.main'],{cwd:ROOT,timeout:5000,stdio:'pipe'}),error=>error.status===1 && error.stderr.toString().includes('retired'));
 });
+test('successive previews reverify fresh template bytes and reject replacement symlink',async()=>temporary(async root=>{
+  await fs.mkdir(path.join(root,'src')); await fs.mkdir(path.join(root,'templates'));
+  await fs.copyFile(path.join(ROOT,'src/core.mjs'),path.join(root,'src/core.mjs'));
+  for(const name of ['manifest.json','node-cli.json']) await fs.copyFile(path.join(ROOT,'templates',name),path.join(root,'templates',name));
+  const isolated=await import(path.join(root,'src/core.mjs'));
+  const args={template:'node-cli',name:'example'};
+  const original=await isolated.preview(args);
+  const source=path.join(root,'templates/node-cli.json');
+  const bytes=await fs.readFile(source);
+  await fs.appendFile(source,' ');
+  await assert.rejects(isolated.preview(args),/digest mismatch/);
+  await fs.writeFile(source,bytes);
+  assert.deepEqual(await isolated.preview(args),original);
+  await fs.rename(source,path.join(root,'outside.json'));
+  await fs.symlink(path.join(root,'outside.json'),source);
+  await assert.rejects(isolated.preview(args));
+}));

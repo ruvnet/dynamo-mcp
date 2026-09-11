@@ -2,24 +2,25 @@
 > @ruvnet/dynamo-mcp@2.0.0-alpha.1 test
 > node --test test/*.test.mjs
 
-✔ all three pinned template types generate reproducibly and pass their own tests (558.978299ms)
-✔ caller path traversal, shell strings and unrecognized fields rejected (0.921003ms)
-✔ digest tampering and hooks rejected without execution (0.356419ms)
-✔ malicious file paths, duplicates and file directory collisions rejected (0.283989ms)
-✔ bundle and rendered file resource limits enforced (1.257823ms)
-✔ symlink and non-private output roots rejected (2.048578ms)
-✔ existing project symlink never followed (2.811963ms)
-✔ concurrent generation reserves one project and preserves contents (6.690339ms)
-✔ quota and crash lock fail closed (19.904164ms)
-✔ legacy Python entrypoint rejects before network or imports (13.876188ms)
-✔ official SDK stdio discovers tools and resource, renders project, rejects writes and shell (181.307875ms)
-✔ runtime validation rejects unconfigured execution (0.727611ms)
-✔ authorized SDK generation publishes tested source and fixed validation passes (840.31176ms)
-ℹ tests 13
+✔ all three pinned template types generate reproducibly and pass their own tests (594.146816ms)
+✔ caller path traversal, shell strings and unrecognized fields rejected (1.788516ms)
+✔ digest tampering and hooks rejected without execution (0.393265ms)
+✔ malicious file paths, duplicates and file directory collisions rejected (0.265331ms)
+✔ bundle and rendered file resource limits enforced (1.255479ms)
+✔ symlink and non-private output roots rejected (2.550198ms)
+✔ existing project symlink never followed (2.784753ms)
+✔ concurrent generation reserves one project and preserves contents (5.4933ms)
+✔ quota and crash lock fail closed (13.49969ms)
+✔ legacy Python entrypoint rejects before network or imports (14.185432ms)
+✔ successive previews reverify fresh template bytes and reject replacement symlink (7.287684ms)
+✔ official SDK stdio discovers tools and resource, renders project, rejects writes and shell (201.053753ms)
+✔ runtime validation rejects unconfigured execution (0.886882ms)
+✔ authorized SDK generation publishes tested source and fixed validation passes (852.349809ms)
+ℹ tests 14
 ℹ suites 0
-ℹ pass 13
+ℹ pass 14
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1190.956418
+ℹ duration_ms 1240.569987

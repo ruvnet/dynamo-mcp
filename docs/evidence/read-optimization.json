@@ -1,0 +1,61 @@
+{
+  "date": "2026-09-11",
+  "node": "v24.19.0",
+  "method": "40warmups,500alternating complete fresh-file previews per implementation per template; every digest reverified; allocation from read buffer capacities",
+  "results": [
+    {
+      "template": "node-cli",
+      "outputsIdentical": true,
+      "samplesEach": 500,
+      "readBufferBytes": {
+        "before": 294914,
+        "after": 2307,
+        "reductionPercent": 99.21773805244919
+      },
+      "before": {
+        "medianMs": 0.32983899999999267,
+        "p95Ms": 2.042440000000056
+      },
+      "after": {
+        "medianMs": 0.3086359999999786,
+        "p95Ms": 0.92311600000005
+      }
+    },
+    {
+      "template": "node-library",
+      "outputsIdentical": true,
+      "samplesEach": 500,
+      "readBufferBytes": {
+        "before": 294914,
+        "after": 2485,
+        "reductionPercent": 99.15738147392122
+      },
+      "before": {
+        "medianMs": 0.2606439999999566,
+        "p95Ms": 0.5650950000000421
+      },
+      "after": {
+        "medianMs": 0.24014299999998912,
+        "p95Ms": 0.646387999999888
+      }
+    },
+    {
+      "template": "python-cli",
+      "outputsIdentical": true,
+      "samplesEach": 500,
+      "readBufferBytes": {
+        "before": 294914,
+        "after": 2369,
+        "reductionPercent": 99.19671497453496
+      },
+      "before": {
+        "medianMs": 0.23457500000017717,
+        "p95Ms": 1.0052510000000439
+      },
+      "after": {
+        "medianMs": 0.21255199999995966,
+        "p95Ms": 0.7198990000001686
+      }
+    }
+  ]
+}
